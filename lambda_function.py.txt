@@ -1,0 +1,23 @@
+import boto3
+
+def lambda_handler(event, context):
+    s3 = boto3.client('s3')
+    sns = boto3.client('sns')
+    
+    # Get the file name and bucket from the upload
+    source_bucket = event['Records'][0]['s3']['bucket']['name']
+    file_name = event['Records'][0]['s3']['object']['key'] # Updated this line
+    
+    # Action: Copy file to processed storage
+    s3.copy_object(
+        CopySource={'Bucket': source_bucket, 'Key': file_name},
+        Bucket='yashvi-processed-2025', 
+        Key=file_name
+    )
+    
+    # Action: Send Email
+    sns.publish(
+        TopicArn='arn:aws:sns:REGION:ACCOUNT_ID:ImageAlerts', # You must replace this!
+        Message=f"Cloud Automation Success! '{file_name}' was processed.",
+        Subject="Automated Pipeline Alert"
+    )
