@@ -1,21 +1,117 @@
-📸 ImageAutomator: AWS Serverless Pipeline
+<div align="center">
 
-🌟 Project Overview
-This project demonstrates a fully automated **Serverless Architecture** built on AWS. It handles image uploads by processing them through a Lambda function and sending real-time email notifications to the administrator.
+# ⚡ Serverless Event-Driven Image Pipeline
+### Automated Image Processing on AWS
+### *Upload it. Process it. Get notified. Zero servers.* ☁️
 
-🏗️ Architecture
-- Amazon S3: Acts as the entry point. Uploading an image to the `uploads` bucket triggers the workflow.
-- AWS Lambda: A Python-based (Boto3) function that captures metadata, copies the file to a `processed` bucket, and triggers the notification service.
-- Amazon SNS: Sends an instant email alert to confirm successful processing.
-- IAM: Manages the "Least Privilege" security policies between services.
+[![AWS Lambda](https://img.shields.io/badge/AWS-Lambda-FF9900?style=for-the-badge&logo=awslambda&logoColor=white)]()
+[![Amazon S3](https://img.shields.io/badge/Amazon-S3-569A31?style=for-the-badge&logo=amazons3&logoColor=white)]()
+[![Amazon SNS](https://img.shields.io/badge/Amazon-SNS-9b72d4?style=for-the-badge&logo=amazonaws&logoColor=white)]()
+[![Serverless](https://img.shields.io/badge/Architecture-Serverless-c9b3e8?style=for-the-badge)]()
+[![Status](https://img.shields.io/badge/Pipeline-Active-brightgreen?style=for-the-badge)]()
 
-🛠️ Key Challenges & Solutions
-- Timeout Fix: Increased Lambda timeout to 30s to ensure network tasks (S3 Copy/SNS Publish) complete successfully.
-- Data Handling: Resolved `KeyError: 'Records'` by correctly parsing the S3 event structure in Python.
-- Permission Mapping: Attached specific IAM policies for SNS and S3 to allow secure cross-service communication.
+</div>
 
-🚀 How to Use
-1. Clone this repository.
-2. Deploy the `lambda_function.py` to an AWS Lambda function.
-3. Add an S3 trigger for "All object create events".
-4. Replace the `TopicArn` in the code with your specific SNS Topic ARN.
+---
+
+## ⚡ What is this?
+
+> *You upload an image. The cloud does everything else.*
+
+A **fully serverless, event-driven image processing pipeline** built on AWS. When a file is uploaded to S3, Lambda automatically triggers, processes the file in real time, and SNS sends an automated email notification — with **zero server management**.
+
+---
+
+## 🏗️ Architecture
+
+```
+User uploads image
+       ↓
+Amazon S3 (Object Created Event)
+       ↓
+AWS Lambda — ImageAutomator
+(Processes file in real time)
+       ↓
+Amazon SNS
+       ↓
+✅ "Cloud Automation Success! 'filename' was processed."
+```
+
+---
+
+## 🖥️ Live Proof — It Actually Works!
+
+### ⚡ AWS Lambda — ImageAutomator Function
+<img src="architecture-diagram.png" alt="Lambda Function Console" width="100%" />
+
+> The **ImageAutomator** Lambda function with S3 as trigger — fires automatically on every file upload. No manual intervention needed. ✅
+
+---
+
+### 📧 Real SNS Email Notification
+<img src="email.png" alt="SNS Email Notification" width="100%" />
+
+> Actual AWS SNS email received: **"Cloud Automation Success! 'Girl code.jpg' was processed."** 💜
+> Full pipeline confirmed working — upload → process → notify.
+
+---
+
+## ☁️ Tech Stack
+
+| Service | Role |
+|---|---|
+| 🪣 **Amazon S3** | Stores images + triggers pipeline on upload |
+| ⚡ **AWS Lambda** | Serverless compute — ImageAutomator function |
+| 📧 **Amazon SNS** | Automated email notifications |
+| 🔐 **AWS IAM** | Secure roles between services |
+| 🐍 **Python** | Lambda function runtime |
+
+---
+
+## ✨ Key Features
+
+- 🚀 **Fully event-driven** — S3 Object Created event triggers everything
+- ⚡ **Real-time processing** — Lambda fires instantly on upload
+- 📧 **Automated notifications** — SNS emails on every successful process
+- 🔧 **Zero server management** — no EC2, no maintenance
+- 💰 **Cost efficient** — pay only when pipeline runs
+- 🔐 **Secure** — IAM roles control all access
+
+---
+
+## 🚀 How It Works
+
+```
+Step 1 → Upload image to S3 bucket
+Step 2 → S3 Object Created event fires
+Step 3 → Lambda (ImageAutomator) triggered automatically
+Step 4 → File processed in real time
+Step 5 → SNS publishes notification
+Step 6 → Email received ✅
+```
+
+---
+
+## 💡 What I Learned
+
+- Building a **serverless pipeline** from scratch on AWS
+- Configuring **S3 event triggers** to invoke Lambda
+- Writing **Lambda functions in Python**
+- Setting up **Amazon SNS** for automated notifications
+- Managing **IAM roles** to connect S3 → Lambda → SNS
+- Understanding **event-driven architecture** used in production
+
+---
+
+## 👩‍💻 Built By
+
+<div align="center">
+
+**Yashvi Thakar** — Cloud & DevOps Engineer
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-yashvithakar-7c5cbf?style=flat&logo=linkedin)](https://www.linkedin.com/in/yashvithakar/)
+[![GitHub](https://img.shields.io/badge/GitHub-yashvi--create-9b72d4?style=flat&logo=github)](https://github.com/yashvi-create)
+
+*Build. Automate. Repeat.* ☁️✨
+
+</div>
